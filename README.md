@@ -1,11 +1,8 @@
 # 📈 Determinants of Stock Market Development
 
-An econometric analysis of the factors influencing stock market activity across 24 countries using World Bank data and Ordinary Least Squares (OLS) regression.
-
-![Econometrics](https://img.shields.io/badge/Econometrics-OLS-blue)
-![Dataset](https://img.shields.io/badge/Data-World%20Bank-green)
-![Software](https://img.shields.io/badge/Software-Stata-red)
-![Countries](https://img.shields.io/badge/Countries-24-orange)
+**Course:** HS163 – Basic Econometrics  
+**Institution:** Indian Institute of Technology Guwahati  
+**Academic Year:** 2025–26
 
 ---
 
@@ -16,6 +13,15 @@ Stock markets are a vital component of economic development, facilitating capita
 This project investigates the determinants of stock market development using cross-country data obtained from the World Bank's World Development Indicators (WDI) database. The study examines how income levels, taxation, employment, technological penetration, and market depth influence the total value of stocks traded within an economy.
 
 The analysis employs Ordinary Least Squares (OLS) regression along with diagnostic tests for heteroskedasticity, multicollinearity, and residual normality to ensure robust and reliable results.
+
+---
+
+## 🚀 Quick Start
+
+1. Open Stata.
+2. Run `Data Cleaning.do` to preprocess the raw dataset.
+3. Run `Data Processing.do` to perform regression analysis and diagnostic testing.
+4. Refer to `Report.pdf` for methodology, results, and conclusions.
 
 ---
 
@@ -245,8 +251,6 @@ A 1% increase in adjusted income per capita is associated with approximately a *
 
 **Implication:** Higher incomes increase investment capacity and participation in financial markets.
 
----
-
 ### 2. Employment Ratio (`employment_ratio`)
 
 **Effect:** Negative and Significant
@@ -255,23 +259,17 @@ Higher employment levels are associated with lower stock market activity after c
 
 Possible explanations include differences in sectoral employment composition and investment behavior across economies.
 
----
-
 ### 3. Mobile Subscriptions (`mobile_subs`)
 
 **Effect:** Positive and Significant
 
 Greater technological penetration is associated with increased stock market participation by improving access to information and digital trading platforms.
 
----
-
 ### 4. Taxes on Income (`taxes_income`)
 
 **Effect:** Positive but Statistically Insignificant
 
 The study does not find strong evidence that taxation significantly affects stock market activity within the scope of the model.
-
----
 
 ### 5. Listed Companies (`listed_companies`)
 
@@ -408,18 +406,19 @@ This script:
 ```mermaid
 flowchart TD
 
-A[Raw Dataset] --> B[Data Cleaning]
+A[Raw DataSet1.dta] --> B[Data Cleaning.do]
 B --> C[Missing Value Treatment]
 C --> D[Variable Transformation]
-D --> E[Clean Dataset]
+D --> E[Clean DataSet1.dta]
 
-E --> F[OLS Regression]
-F --> G[Heteroskedasticity Test]
-G --> H[Robust Regression]
+E --> F[Data Processing.do]
+F --> G[OLS Regression]
+G --> H[Heteroskedasticity Test]
+H --> I[Robust Regression]
 
-H --> I[VIF Analysis]
-I --> J[Residual Diagnostics]
-J --> K[Final Report]
+I --> J[VIF Analysis]
+J --> K[Residual Diagnostics]
+K --> L[Report.pdf]
 ```
 
 ---
