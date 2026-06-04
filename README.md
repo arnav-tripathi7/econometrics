@@ -1,532 +1,469 @@
-Determinants of Stock Market Development
+# 📈 Determinants of Stock Market Development
 
-A cross-country econometric analysis examining the key economic and financial factors that influence stock market activity using World Bank data and Ordinary Least Squares (OLS) regression.  ￼
+An econometric analysis of the factors influencing stock market activity across 24 countries using World Bank data and Ordinary Least Squares (OLS) regression.
 
-⸻
+![Econometrics](https://img.shields.io/badge/Econometrics-OLS-blue)
+![Dataset](https://img.shields.io/badge/Data-World%20Bank-green)
+![Software](https://img.shields.io/badge/Software-Stata-red)
+![Countries](https://img.shields.io/badge/Countries-24-orange)
 
-Overview
+---
 
-Stock markets play a crucial role in economic development by facilitating capital formation, improving resource allocation, and providing investment opportunities. This project investigates the determinants of stock market development by analyzing how various economic, financial, and technological factors affect the total value of stocks traded across multiple countries.
+## 📖 Overview
 
-The study employs econometric techniques to identify significant drivers of stock market activity and provides policy recommendations for enhancing financial market participation and development.  ￼
+Stock markets play a crucial role in economic development by facilitating capital allocation, improving liquidity, and enabling wealth creation. Understanding the factors that drive stock market participation and activity is essential for policymakers, investors, and researchers.
 
-⸻
+This project investigates the determinants of stock market development using cross-country panel data from the **World Bank World Development Indicators (WDI)** database. The analysis focuses on how economic prosperity, taxation, employment, technological penetration, and market depth influence the **total value of stocks traded**.
 
-Research Objective
+The study employs **Ordinary Least Squares (OLS) Regression**, followed by diagnostic testing for heteroskedasticity, multicollinearity, and residual normality to ensure robust and reliable results.
 
-The primary objective of this study is to examine the relationship between stock market activity and several macroeconomic and financial indicators across different countries.
+---
 
-Research Question
+## 🎯 Research Objective
 
-Which economic and financial factors significantly influence the total value of stocks traded in a country?
+The primary objective of this study is to identify the economic and financial variables that significantly affect stock market activity.
 
-Dependent Variable
+### Research Question
 
-Stock Market Activity (stock_value)
+> What are the key determinants of stock market development across countries?
 
-* Total value of stocks traded on domestic exchanges
-* Measured in current US dollars
-* Represents market liquidity and trading activity
-* Standardized for cross-country comparison  ￼
+### Hypothesis
 
-⸻
+Economic prosperity, technological access, and market depth positively influence stock market activity, while taxation and labor market conditions may have varying effects.
 
-Team Members
+---
 
-* Aneesh Nitin Bhate
-* Aashish Pendharkar
-* Arnav Jain
-* Aryan Tripathi
-* Arnav Tripathi
-* Atharva Agrawal
-* Sanjay Saini
+## 🌍 Dataset
 
-Course: HS163 – Basic Econometrics
-Academic Year: 2025–2026
-Institution: IIT Guwahati  ￼
+### Source
 
-⸻
+- **World Bank DataBank**
+- **World Development Indicators (WDI)**
 
-Dataset
+Link:
+https://databank.worldbank.org/source/world-development-indicators
 
-Data Source
+### Countries Included
 
-World Bank – World Development Indicators (WDI)
+| Region | Countries |
+|----------|-----------|
+| Asia | India, China, Japan, Malaysia, Singapore, Saudi Arabia, Oman, UAE |
+| Europe | Austria, Germany, France, Italy, Norway, Switzerland, United Kingdom, Russia |
+| Americas | United States, Canada, Mexico, Argentina |
+| Africa | Egypt, South Africa |
+| Oceania | Australia, New Zealand |
 
-The dataset was obtained from the World Bank DataBank, one of the most comprehensive global repositories of economic and development statistics.  ￼
+### Total Observations
 
-Countries Included
+- **600 observations**
+- Multiple years across 24 countries
 
-The study analyzes data from 24 countries:
+---
 
-* Argentina
-* Australia
-* Austria
-* Canada
-* China
-* Egypt
-* France
-* Germany
-* India
-* Italy
-* Japan
-* Malaysia
-* Mexico
-* New Zealand
-* Norway
-* Oman
-* Russia
-* Saudi Arabia
-* Singapore
-* South Africa
-* Switzerland
-* United Arab Emirates
-* United Kingdom
-* United States  ￼
+## 📊 Variables Used
 
-⸻
+### Dependent Variable
 
-Variables Used
+| Variable | Description |
+|-----------|-------------|
+| `stock_value` | Total value of stocks traded (Current US$) |
 
-Dependent Variable
+---
 
-Variable	Description
-stock_value	Total value of stocks traded (Current US$)
+### Independent Variables
 
-Independent Variables
+| Variable | Description |
+|-----------|-------------|
+| `adj_income` | Adjusted Net National Income per Capita |
+| `taxes_income` | Taxes on Income, Profits and Capital Gains (%) |
+| `listed_companies` | Number of Domestically Listed Companies |
+| `mobile_subs` | Mobile Cellular Subscriptions |
+| `employment_ratio` | Employment-to-Population Ratio |
 
-Variable	Description
-adj_income	Adjusted net national income per capita
-taxes_income	Taxes on income, profits, and capital gains (%)
-listed_companies	Number of domestically listed companies
-mobile_subs	Cellular subscriptions
-employment_ratio	Employment-to-population ratio (%)
+---
 
-Variable Rationale
+## 🛠 Methodology
 
-Adjusted Income (adj_income)
+### 1. Data Cleaning
 
-Represents sustainable income levels after accounting for depreciation and depletion of natural resources. Higher income levels are expected to increase investment capacity and financial market participation.
+The raw dataset underwent extensive preprocessing before analysis.
 
-Taxes on Income (taxes_income)
+#### Cleaning Steps
 
-Captures government taxation on income, profits, and capital gains. Tax policies can influence investment decisions and market participation.
+- Converted missing placeholders (`".."`) into actual missing values
+- Converted string variables to numeric format
+- Standardized variable names
+- Removed redundant columns
+- Sorted observations by country and year
+- Removed duplicate observations
 
-Listed Companies (listed_companies)
+---
 
-Measures market depth and development. More listed firms generally indicate a more mature financial market with greater investment opportunities.
+### 2. Missing Value Treatment
 
-Mobile Subscriptions (mobile_subs)
+Different imputation methods were applied depending on the nature of the variable.
 
-Acts as a proxy for technological access and digital connectivity, facilitating access to financial information and trading platforms.
+| Method | Variables |
+|----------|-----------|
+| Manual Imputation | Taxes for UAE and Oman |
+| Interpolation | Employment Ratio, Mobile Subs, Income |
+| Regression Imputation | Taxes Income |
+| Median Imputation | Listed Companies |
 
-Employment Ratio (employment_ratio)
+---
 
-Represents labor market strength and income stability, potentially affecting investment behavior.  ￼
+### 3. Log Transformation
 
-⸻
+To reduce skewness and improve interpretability:
 
-Methodology
-
-Econometric Model
-
-The study uses Ordinary Least Squares (OLS) Regression to estimate the relationship between stock market activity and the selected explanatory variables.
-
-Model Specification
-
-\log(stock\_value) =
-\beta_0 +
-\beta_1 \log(adj\_income) +
-\beta_2 employment\_ratio +
-\beta_3 mobile\_subs +
-\beta_4 taxes\_income +
-\beta_5 listed\_companies +
-\epsilon
-
-Why OLS?
-
-OLS was chosen because:
-
-* Assumes approximately linear relationships
-* Produces interpretable coefficient estimates
-* Supports multiple explanatory variables
-* Enables statistical significance testing
-* Suitable for large cross-country datasets
-* Widely used in economics and finance research  ￼
-
-⸻
-
-Data Preprocessing
-
-1. Data Cleaning
-
-The following preprocessing steps were performed:
-
-Column Standardization
-
-* Renamed variables to more readable names
-* Converted string variables to numeric format
-* Removed redundant columns
-
-Removal of Unnecessary Variables
-
-* Dropped TimeCode
-* Retained year variable
-
-Sorting
-
-Data sorted by:
-
-* Country
-* Year
-
-Duplicate Handling
-
-Duplicate observations were removed where necessary.  ￼
-
-⸻
-
-2. Missing Value Treatment
-
-Different imputation techniques were applied depending on the variable characteristics.
-
-Manual Imputation
-
-Used when missing values represented actual policy conditions.
-
-Example:
-
-replace taxes_income = 0 if country == "Oman"
-replace taxes_income = 0 if country == "United Arab Emirates"
-
-Interpolation
-
-Applied to:
-
-* Employment ratio
-* Mobile subscriptions
-* Adjusted income
-
-Used for smooth time-series estimation.
-
-Regression Imputation
-
-Applied to:
-
-* Taxes on income
-
-Predicted using:
-
-* Adjusted income
-* Employment ratio
-
-Median Imputation
-
-Applied to:
-
-* Listed companies
-
-Chosen because it is robust to outliers.  ￼
-
-⸻
-
-3. Log Transformation
-
-The following variables exhibited large magnitudes and skewed distributions:
-
-* stock_value
-* adj_income
-
-Logarithmic transformation was applied:
-
+```stata
 gen log_stock = log(stock_value)
 gen log_income = log(adj_income)
+```
 
 Benefits:
 
-* Reduces skewness
-* Mitigates influence of extreme observations
-* Improves normality
-* Allows elasticity interpretation of coefficients  ￼
+- Reduces influence of outliers
+- Improves normality
+- Allows elasticity interpretation
+- Stabilizes variance
 
-⸻
+---
 
-Statistical Diagnostics
+## 📐 Econometric Model
 
-Heteroskedasticity Test
+The final model estimated was:
 
-Breusch–Pagan/Cook–Weisberg Test
+$begin:math:display$
+\\log\(stock\\\_value\)
+\=
+\\beta\_0
+\+
+\\beta\_1 \\log\(adj\\\_income\)
+\+
+\\beta\_2 employment\\\_ratio
+\+
+\\beta\_3 mobile\\\_subs
+\+
+\\beta\_4 taxes\\\_income
+\+
+\\beta\_5 listed\\\_companies
+\+
+\\epsilon
+$end:math:display$
 
-Results:
+### Why OLS?
 
-Statistic	Value
-Chi-square	4.38
-p-value	0.0364
+- Simple and interpretable
+- Suitable for continuous outcomes
+- Supports multiple explanatory variables
+- Allows statistical significance testing
+- Widely used in economics and finance
 
-Interpretation
+---
+
+## 🔍 Model Diagnostics
+
+### Heteroskedasticity Test
+
+Breusch–Pagan / Cook–Weisberg Test
+
+| Statistic | Value |
+|------------|--------|
+| Chi-square | 4.38 |
+| p-value | 0.0364 |
+
+### Conclusion
 
 Since:
 
-p < 0.05
+```text
+p-value < 0.05
+```
 
-The null hypothesis of homoscedasticity was rejected.
+The null hypothesis of homoscedasticity is rejected.
 
-Conclusion: Heteroskedasticity exists in the model, requiring robust standard errors.  ￼
+➡️ Heteroskedasticity exists.
 
-⸻
+Therefore, the model was re-estimated using **robust standard errors**.
 
-Robust Regression
+---
 
-To address heteroskedasticity:
+### Multicollinearity Test
 
-reg log_stock log_income employment_ratio mobile_subs taxes_income listed_companies, robust
+Variance Inflation Factor (VIF)
 
-Robust standard errors were used for all final statistical inference.  ￼
+| Variable | VIF |
+|-----------|------|
+| Listed Companies | 2.43 |
+| Mobile Subs | 2.33 |
+| Log Income | 1.43 |
+| Taxes Income | 1.35 |
+| Employment Ratio | 1.33 |
 
-⸻
+**Mean VIF = 1.77**
 
-Multicollinearity Check
+### Conclusion
 
-Variance Inflation Factor (VIF) was computed.
+All VIF values are below 5.
 
-Variable	VIF
-Listed Companies	2.43
-Mobile Subs	2.33
-Log Income	1.43
-Taxes Income	1.35
-Employment Ratio	1.33
+✅ No serious multicollinearity detected.
 
-Mean VIF = 1.77
+---
 
-Interpretation
+### Residual Analysis
 
-* VIF < 5 for all variables
-* No serious multicollinearity detected
-* Coefficient estimates are considered stable and reliable  ￼
+A histogram of residuals was generated to verify normality assumptions.
 
-⸻
+Observations:
 
-Residual Analysis
+- Residuals centered around zero
+- Approximately bell-shaped distribution
+- Mild skewness at tails
+- No major violations of OLS assumptions
 
-Residuals were computed and plotted using a histogram.
+✅ Model assumptions reasonably satisfied.
 
-Findings
+---
 
-* Residuals are approximately centered around zero
-* Distribution resembles a bell curve
-* Minor deviations from normality exist
-* No severe violations of OLS assumptions observed
+## 📈 Results
 
-Conclusion
+### Model Performance
 
-The model satisfies normality assumptions reasonably well and can be considered statistically reliable.  ￼
+| Metric | Value |
+|----------|---------|
+| Observations | 600 |
+| R² | 0.451 |
+| Root MSE | 1.782 |
 
-⸻
+### Interpretation
 
-Results
+The model explains approximately **45.1%** of the variation in stock market activity.
 
-Model Performance
+This indicates a moderate explanatory power while suggesting the presence of additional determinants not included in the model.
 
-Metric	Value
-Observations	600
-R²	0.451
-Root MSE	1.782
+---
 
-Interpretation
+## 🔑 Key Findings
 
-The model explains approximately 45.1% of the variation in stock market activity across countries and years. This indicates moderate explanatory power.  ￼
+### 1. Income Level (`log_income`)
 
-⸻
+| Effect | Significance |
+|----------|------------|
+| Positive | Highly Significant |
 
-Key Findings
+Coefficient:
 
-1. Income Levels
+```text
+0.932
+```
 
-Coefficient: +0.932
+Interpretation:
 
-Statistical Significance: Highly significant
+> A 1% increase in adjusted income per capita leads to approximately a 0.93% increase in stock value traded.
 
-Interpretation
+### Insight
 
-A 1% increase in adjusted income per capita is associated with approximately a 0.93% increase in stock value traded.
+Higher incomes increase savings capacity and participation in financial markets.
 
-Implication:
+---
 
-* Higher income encourages investment
-* Income is the strongest predictor of stock market activity
+### 2. Employment Ratio
 
-⸻
+| Effect | Significance |
+|----------|------------|
+| Negative | Significant |
 
-2. Employment Ratio
+Interpretation:
 
-Coefficient: Negative
+Higher employment rates are associated with lower stock market activity after controlling for other factors.
 
-Statistical Significance: Significant
+Possible reasons:
 
-Interpretation
+- Employment concentrated in low-investment sectors
+- Preference for stable income over financial investments
 
-Higher employment levels are associated with lower stock market activity after controlling for other factors.
+---
 
-Possible explanations:
+### 3. Mobile Subscriptions
 
-* Employment concentrated in sectors with low market participation
-* Preference for consumption or stable income rather than investment
+| Effect | Significance |
+|----------|------------|
+| Positive | Significant |
 
-⸻
+Interpretation:
 
-3. Mobile Subscriptions
+Greater digital connectivity improves:
 
-Coefficient: Positive
+- Access to market information
+- Online trading participation
+- Financial inclusion
 
-Statistical Significance: Significant
+---
 
-Interpretation
+### 4. Taxes on Income
 
-Greater technological access increases stock market participation.
+| Effect | Significance |
+|----------|------------|
+| Positive | Not Significant |
 
-Benefits include:
+Interpretation:
 
-* Better access to information
-* Easier online trading
-* Improved financial inclusion
+Taxation does not show a statistically significant impact on stock market activity within this model.
 
-⸻
+---
 
-4. Taxes on Income
+### 5. Listed Companies
 
-Coefficient: Positive
+| Effect | Significance |
+|----------|------------|
+| Positive | Highly Significant |
 
-Statistical Significance: Not significant
+Interpretation:
 
-Interpretation
+An increase in listed firms leads to greater stock market activity through:
 
-No strong evidence that taxation significantly affects stock market activity within the scope of this model.
+- Improved liquidity
+- Greater investment opportunities
+- Increased market depth
 
-⸻
+---
 
-5. Listed Companies
+## 🏛 Policy Recommendations
 
-Coefficient: Positive
+### 💰 Improve Income Levels
 
-Statistical Significance: Highly significant
+- Tax incentives for long-term investments
+- Investment-linked savings accounts
+- Income growth programs
 
-Interpretation
+### 📚 Increase Financial Literacy
 
-An increase in listed firms significantly increases stock market activity.
+- School-level financial education
+- Investor awareness campaigns
+- Digital learning platforms
 
-Benefits:
+### 📱 Expand Digital Access
 
-* Greater market depth
-* More investment opportunities
-* Improved liquidity
+- Affordable internet connectivity
+- Improved smartphone penetration
+- Support fintech innovation
 
-￼
+### 🏢 Deepen Capital Markets
 
-⸻
+- Simplify IPO procedures
+- Encourage SME listings
+- Reduce compliance burdens
 
-Policy Recommendations
+### ⚖️ Stable Tax Policy
 
-Improve Household Income
+- Transparent taxation framework
+- Predictable capital gains policies
+- Reduced regulatory uncertainty
 
-* Encourage long-term investments through tax incentives
-* Introduce tax-advantaged investment accounts
-* Promote skill development and formal employment
+### 👨‍💼 Integrate Employment & Investing
 
-Increase Financial Literacy
+- Employer-sponsored investment plans
+- Retirement-linked market participation
+- Automatic enrollment schemes
 
-* Introduce financial education programs
-* Include investment concepts in school curricula
-* Conduct public awareness campaigns
+---
 
-Expand Digital Access
+## 🚧 Limitations
 
-* Improve internet infrastructure
-* Increase smartphone penetration
-* Support fintech innovation
+The study has several limitations:
 
-Strengthen Capital Markets
+- Limited number of explanatory variables
+- Possible omitted variable bias
+- Relatively short time horizon
+- Potential endogeneity issues
+- Pooled OLS instead of panel data techniques
 
-* Simplify listing requirements
-* Reduce compliance costs
-* Promote SME stock exchanges
+---
 
-Tax Policy Reform
-
-* Maintain predictable tax structures
-* Simplify capital gains taxation
-* Avoid abrupt regulatory changes
-
-Connect Employment to Investing
-
-* Encourage retirement and investment plans linked to employment
-* Promote employer-supported investment schemes
-
-￼
-
-⸻
-
-Limitations
-
-The study acknowledges several limitations:
-
-1. Limited set of explanatory variables
-2. Relatively short observation period
-3. Use of pooled OLS instead of panel-data methods
-4. Potential endogeneity issues
-5. Lack of dynamic modeling and lagged effects
-
-￼
-
-⸻
-
-Future Work
+## 🔮 Future Improvements
 
 Potential extensions include:
 
-* Incorporating inflation and interest rates
-* Including financial literacy indicators
-* Using Fixed Effects or Random Effects models
-* Applying Instrumental Variable (IV) techniques
-* Developing dynamic panel models
-* Expanding country and time coverage
+- Fixed Effects Models
+- Random Effects Models
+- Instrumental Variable Regression
+- Dynamic Panel Models
+- Inclusion of Inflation and Interest Rates
+- Financial Literacy Indicators
+- Institutional Quality Measures
 
-￼
+---
 
-⸻
+## 💻 Software Used
 
-Tools Used
+- Stata
+- World Bank DataBank
+- Microsoft Excel
 
-Software
+### Key Techniques
 
-* Stata
+- Data Cleaning
+- Interpolation
+- Regression Imputation
+- Median Imputation
+- OLS Regression
+- Robust Standard Errors
+- VIF Analysis
+- Heteroskedasticity Testing
+- Residual Diagnostics
 
-Techniques
+---
 
-* Data Cleaning
-* Interpolation
-* Regression Imputation
-* Median Imputation
-* Log Transformation
-* OLS Regression
-* Robust Standard Errors
-* Heteroskedasticity Testing
-* Variance Inflation Factor Analysis
-* Residual Diagnostics
+## 📂 Project Structure
 
-￼
+```text
+.
+├── data/
+│   ├── raw_data.csv
+│   └── cleaned_data.csv
+│
+├── scripts/
+│   ├── cleaning.do
+│   ├── processing.do
+│   └── regression.do
+│
+├── outputs/
+│   ├── regression_results.csv
+│   ├── residual_histogram.png
+│   └── vif_results.csv
+│
+├── report/
+│   └── Final_Report.pdf
+│
+└── README.md
+```
 
-⸻
+---
 
-Reference
+## 📚 References
 
-World Bank. World Development Indicators (WDI). Available at:
+1. World Bank World Development Indicators (WDI)
+   https://databank.worldbank.org/source/world-development-indicators
 
-https://databank.worldbank.org/source/world-development-indicators
+---
 
-￼
+## 👥 Authors
 
-⸻
+- Aneesh Nitin Bhate
+- Aashish Pendharkar
+- Arnav Jain
+- Aryan Tripathi
+- Arnav Tripathi
+- Atharva Agrawal
+- Sanjay Saini
 
-License
+**Course:** HS163 – Basic Econometrics  
+**Institution:** IIT Guwahati  
+**Academic Year:** 2025–26
 
-This project was developed as part of the coursework for HS163: Basic Econometrics at IIT Guwahati for academic and educational purposes.  ￼
+---
+
+## 📄 License
+
+This project was developed for academic and educational purposes as part of the HS163 Basic Econometrics coursework at IIT Guwahati.
