@@ -355,14 +355,10 @@ Determinants-of-Stock-Market-Development/
 │
 ├── README.md
 ├── Report.pdf
-│
-├── data/
-│   ├── Raw DataSet1.dta
-│   └── Clean DataSet1.dta
-│
-└── scripts/
-    ├── Data Cleaning.do
-    └── Data Processing.do
+├── Raw DataSet1.dta
+├── Clean DataSet1.dta
+├── Data Cleaning.do
+└── Data Processing.do
 ```
 
 ---
@@ -385,8 +381,8 @@ This script:
 
 - Cleans the raw dataset
 - Handles missing values
-- Applies imputation methods
-- Creates the cleaned dataset
+- Applies interpolation and imputation methods
+- Produces the cleaned dataset
 
 ### Step 2: Statistical Analysis
 
@@ -398,10 +394,12 @@ do "Data Processing.do"
 
 This script:
 
-- Performs variable transformations
+- Performs logarithmic transformations
 - Runs OLS regression
-- Conducts diagnostic testing
-- Generates statistical results
+- Conducts heteroskedasticity testing
+- Estimates robust standard errors
+- Computes VIF statistics
+- Performs residual diagnostics
 
 ---
 
